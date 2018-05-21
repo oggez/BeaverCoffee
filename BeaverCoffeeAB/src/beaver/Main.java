@@ -58,7 +58,8 @@ public class Main {
 //		mongoClient.close();
 ////		mongoClient.close();
 		
-		GUI gui = new GUI();
+		Main main = new Main();
+		GUI gui = new GUI(main);
 		
 	}
 

@@ -5,6 +5,8 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 
 public class GUI extends JFrame implements ActionListener {
+	private Main main;
+	
 	private JButton btnPlaceOrder;
 	private JButton btnListOfOrders;
 	private JButton btnJoinClub;
@@ -14,8 +16,9 @@ public class GUI extends JFrame implements ActionListener {
 	
 	private JComboBox<String> accessControlDropDown;
 	
-	public GUI() {
+	public GUI(Main main) {
 		super("BeaverCoffee");
+		this.main = main;
 		addFrame();
 		addButtons();
 		addAccessControlDropDown();
