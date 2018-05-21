@@ -19,31 +19,48 @@ import com.mongodb.client.MongoIterable;
 
 public class Main {
 	
-	
 	public static void main(String [] args) {
 		//T3ST!
-		MongoClientURI uri = new MongoClientURI(
-				"mongodb+srv://Kristofer:T3ST!@cluster-ffxml.mongodb.net/test");
-
-		MongoClient mongoClient = new MongoClient(uri);
-		MongoDatabase database = mongoClient.getDatabase("test");
-//		database.createCollection("BEAVERTEST");
-		MongoCollection<Document> collection = database.getCollection("BEAVERTEST");
-//		Document document = new Document();
-//		document.put("name", "Oskar");
-//		document.put("company", "Test");
-//		collection.insertOne(document);
+//		MongoClientURI uri = new MongoClientURI(
+//				"mongodb+srv://Kristofer:T3ST!@cluster-ffxml.mongodb.net/test");
+//
+//		MongoClient mongoClient = new MongoClient(uri);
+//		MongoDatabase database = mongoClient.getDatabase("test");
+////		database.createCollection("BEAVERTEST");
+//		MongoCollection<Document> collection = database.getCollection("BEAVERTEST");
+////		MongoClientURI uri = new MongoClientURI(
+////				"mongodb+srv://Kristofer:T3ST!@cluster-ffxml.mongodb.net/test");
+////
+////		MongoClient mongoClient = new MongoClient(uri);
+////		MongoDatabase database = mongoClient.getDatabase("test");
+//////		database.createCollection("BEAVERTEST");
+////		MongoCollection<Document> collection = database.getCollection("BEAVERTEST");
+////		Document document = new Document();
+////		document.put("name", "Oskar");
+////		document.put("company", "Test");
+////		collection.insertOne(document);
+//		
+//		//Find document
+//		BasicDBObject searchQuery = new BasicDBObject();
+//		searchQuery.put("name", "Oskar");
+//		MongoIterable<Document> list = collection.find(searchQuery);
+//		for(Document i:list) {
+//			System.out.println(i);
+//		}
+//
+////		BasicDBObject searchQuery = new BasicDBObject();
+////		searchQuery.put("name", "Oskar");
+////		MongoIterable<Document> list = collection.find(searchQuery);
+////		for(Document i:list) {
+////			System.out.println(i);
+////		}
+////		database.drop();
+//		mongoClient.close();
+////		mongoClient.close();
 		
-		//Find document
-		BasicDBObject searchQuery = new BasicDBObject();
-		searchQuery.put("name", "Oskar");
-		MongoIterable<Document> list = collection.find(searchQuery);
-		for(Document i:list) {
-			System.out.println(i);
-		}
-
-//		database.drop();
-		mongoClient.close();
+		GUI gui = new GUI();
+		
 	}
 
 }
+
