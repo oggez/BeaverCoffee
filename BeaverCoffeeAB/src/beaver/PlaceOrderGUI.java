@@ -42,7 +42,6 @@ public class PlaceOrderGUI extends JFrame {
 	}
 	
 	public void addFrame() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setResizable(false);
 		setBounds(200, 50, 800, 600);
 		addComponents();
