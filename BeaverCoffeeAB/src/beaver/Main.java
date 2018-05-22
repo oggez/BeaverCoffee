@@ -58,20 +58,15 @@ public class Main {
 		
 	}
 	
-	public void updateOrder(String id, int brewedCoffee, int espresso, int latte, int cappuccino,
+	public void updateOrder(Object id, int brewedCoffee, int espresso, int latte, int cappuccino,
 			int chocolate, int vanilla, int caramel, int irishCoffee) {
 		
 		MongoCollection<Document> collection = database.getCollection("Orders");
-		Bson filter = new Document("_id", id);
-		Document newValue = new Document();
-		newValue.append("brewedCoffee", brewedCoffee);
-		newValue.append("espresso", espresso);
-		newValue.append("latte", latte);
-		newValue.append("cappuccino", cappuccino);
-		newValue.append("chocolate", chocolate);
-		newValue.append("vanilla", vanilla);
-		newValue.append("caramel", caramel);
-		newValue.append("irishCoffee", irishCoffee);
+		Bson filter = new Document().append("_id", id);
+		Bson newValue = new Document().append("brewedCoffee", brewedCoffee).append("espresso", espresso).append("latte", latte)
+				.append("cappuccino", cappuccino).append("chocolate", chocolate).append("vanilla", vanilla).append("caramel", caramel)
+				.append("irishCoffee", irishCoffee);
+		System.out.println(filter);
 		Bson updateOperationDocument = new Document("$set", newValue);
 		collection.updateOne(filter, updateOperationDocument);
 		

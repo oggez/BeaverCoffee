@@ -141,7 +141,7 @@ public class PlaceOrderGUI extends JFrame implements ActionListener{
 		
 		if(e.getSource() == btnConfirm) {
 			main.addOrder(Integer.parseInt((tfBrewedCoffee.getText())), Integer.parseInt((tfEspresso.getText())), Integer.parseInt((tfLatte.getText())), Integer.parseInt((tfCappuccino.getText())), Integer.parseInt((tfChocolate.getText())), Integer.parseInt((tfVanilla.getText())), Integer.parseInt((tfCaramel.getText())), Integer.parseInt((tfIrishCoffee.getText())));
-			
+			dispose();
 			
 		}
 		

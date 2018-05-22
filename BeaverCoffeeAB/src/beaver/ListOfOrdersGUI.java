@@ -76,11 +76,18 @@ public class ListOfOrdersGUI extends JFrame implements ActionListener {
 		if(e.getSource() == btnConfirm) {
 			dispose();
 		} else if(e.getSource() == btnUpdate) {
-			System.out.println(table.getSelectedRow());
-			int index = table.getSelectedRow();
 			
-			System.out.println(table.getValueAt(index, 0));
-		//	main.updateOrder(id, brewedCoffee, espresso, latte, cappuccino, chocolate, vanilla, caramel, irishCoffee);
+			int index = table.getSelectedRow();
+			Object id = table.getValueAt(index, 0);
+			int brewedCoffee = Integer.parseInt(table.getValueAt(index, 1).toString());
+			int espresso = Integer.parseInt(table.getValueAt(index, 2).toString());
+			int latte = Integer.parseInt(table.getValueAt(index, 3).toString());
+			int cappuccino = Integer.parseInt(table.getValueAt(index, 4).toString());
+			int chocolate = Integer.parseInt(table.getValueAt(index, 5).toString());
+			int vanilla = Integer.parseInt(table.getValueAt(index, 6).toString());
+			int caramel = Integer.parseInt(table.getValueAt(index, 7).toString());
+			int irishCoffee = Integer.parseInt(table.getValueAt(index, 8).toString());
+			main.updateOrder(id, brewedCoffee, espresso, latte, cappuccino, chocolate, vanilla, caramel, irishCoffee);
 		}
 	}
 }
