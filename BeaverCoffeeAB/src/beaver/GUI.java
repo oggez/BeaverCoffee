@@ -106,6 +106,8 @@ public class GUI extends JFrame implements ActionListener {
 			PlaceOrderGUI placeOrder = new PlaceOrderGUI(main);
 		} else if(e.getSource() == btnListOfOrders) {
 			ListOfOrdersGUI orderList = new ListOfOrdersGUI(main);
+		} else if(e.getSource() == btnJoinClub) {
+			JoinClubGUI joinClub = new JoinClubGUI();
 		}
 	}
 }
