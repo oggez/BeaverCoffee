@@ -1,6 +1,8 @@
 package beaver;
 
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.Locale;
@@ -11,10 +13,10 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
-public class PlaceOrderGUI extends JFrame {
+public class PlaceOrderGUI extends JFrame implements ActionListener{
 
-	private JLabel lblBrewedCoffe;
-	private JTextField tfBrewedCoffe;
+	private JLabel lblBrewedCoffee;
+	private JTextField tfBrewedCoffee;
 
 	private JLabel lblEspresso;
 	private JTextField tfEspresso;
@@ -37,15 +39,16 @@ public class PlaceOrderGUI extends JFrame {
 	private JLabel lblCaramel;
 	private JTextField tfCaramel;
 
-	private JLabel lblIrishCoffe;
-	private JTextField tfIrishCoffe;
+	private JLabel lblIrishCoffee;
+	private JTextField tfIrishCoffee;
 
 	private JButton btnConfirm;
 
+	private Main main;
 	
-	
-	public PlaceOrderGUI() {
+	public PlaceOrderGUI(Main main) {
 		addFrame();
+		this.main = main;
 		setVisible(true);
 	}
 
@@ -62,12 +65,12 @@ public class PlaceOrderGUI extends JFrame {
 		DecimalFormat decimalFormat = (DecimalFormat) numberFormat;
 		decimalFormat.setGroupingUsed(false);
 		
-		lblBrewedCoffe = new JLabel("Brewed Coffe");
-		lblBrewedCoffe.setBounds(50, 60, 100, 20);
-		add(lblBrewedCoffe);
-		tfBrewedCoffe = new JTextField();
-		tfBrewedCoffe.setBounds(150, 60, 50, 20);
-		add(tfBrewedCoffe);
+		lblBrewedCoffee = new JLabel("Brewed Coffee");
+		lblBrewedCoffee.setBounds(50, 60, 100, 20);
+		add(lblBrewedCoffee);
+		tfBrewedCoffee = new JTextField();
+		tfBrewedCoffee.setBounds(150, 60, 50, 20);
+		add(tfBrewedCoffee);
 
 		lblEspresso = new JLabel("Espresso");
 		lblEspresso.setBounds(50, 120, 100, 20);
@@ -120,16 +123,28 @@ public class PlaceOrderGUI extends JFrame {
 		tfCaramel.setBounds(150, 420, 50, 20);
 		add(tfCaramel);
 
-		lblIrishCoffe = new JLabel("Irish Coffe");
-		lblIrishCoffe.setBounds(50, 440, 100, 20);
-		add(lblIrishCoffe);
-		tfIrishCoffe = new JTextField();
-		tfIrishCoffe.setBounds(150, 440, 50, 20);
-		add(tfIrishCoffe);
+		lblIrishCoffee = new JLabel("Irish Coffee");
+		lblIrishCoffee.setBounds(50, 440, 100, 20);
+		add(lblIrishCoffee);
+		tfIrishCoffee = new JTextField();
+		tfIrishCoffee.setBounds(150, 440, 50, 20);
+		add(tfIrishCoffee);
 
 		btnConfirm = new JButton("Confirm");
 		btnConfirm.setBounds(650, 500, 100, 40);
 		add(btnConfirm);
+		btnConfirm.addActionListener(this);
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		
+		if(e.getSource() == btnConfirm) {
+			main.addOrder(Integer.parseInt((tfBrewedCoffee.getText())), Integer.parseInt((tfEspresso.getText())), Integer.parseInt((tfLatte.getText())), Integer.parseInt((tfCappuccino.getText())), Integer.parseInt((tfChocolate.getText())), Integer.parseInt((tfVanilla.getText())), Integer.parseInt((tfCaramel.getText())), Integer.parseInt((tfIrishCoffee.getText())));
+			
+			
+		}
+		
 	}
 
 }

@@ -103,9 +103,9 @@ public class GUI extends JFrame implements ActionListener {
 				btnCreateReport.setEnabled(true);
 			}
 		} else if(e.getSource() == btnPlaceOrder) {
-			PlaceOrderGUI placeOrder = new PlaceOrderGUI();
+			PlaceOrderGUI placeOrder = new PlaceOrderGUI(main);
 		} else if(e.getSource() == btnListOfOrders) {
-			ListOfOrdersGUI orderList = new ListOfOrdersGUI();
+			ListOfOrdersGUI orderList = new ListOfOrdersGUI(main);
 		}
 	}
 }

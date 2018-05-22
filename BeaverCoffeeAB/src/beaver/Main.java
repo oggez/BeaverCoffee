@@ -18,6 +18,46 @@ import com.mongodb.client.MongoIterable;
 
 
 public class Main {
+	private MongoDatabase database;
+	public Main() {
+		MongoClientURI uri = new MongoClientURI("mongodb+srv://Kristofer:T3ST!@cluster-ffxml.mongodb.net/test");
+		MongoClient mongoClient = new MongoClient(uri);
+		database = mongoClient.getDatabase("BeaverCoffee");
+		
+	}
+	
+	public void addOrder(int brewedCoffee, int espresso, int latte, int cappuccino,
+			int chocolate, int vanilla, int caramel, int irishCoffee) {
+		MongoCollection<Document> collection = database.getCollection("Orders");
+		Document document = new Document();
+		document.put("brewedCoffee", brewedCoffee);
+		document.put("espresso", espresso);
+		document.put("latte", latte);
+		document.put("cappuccino", cappuccino);
+		document.put("chocolate", chocolate);
+		document.put("vanilla", vanilla);
+		document.put("caramel", caramel);
+		document.put("irishCoffee", irishCoffee);
+		
+		collection.insertOne(document);
+	}
+	
+	public ArrayList<Object[]> getOrders(){
+		MongoCollection<Document> collection = database.getCollection("Orders");
+		MongoIterable<Document> list = collection.find();
+		ArrayList<Object[]> arrayList = new ArrayList<Object[]>();
+		for(Document i:list) {
+			System.out.println(i);
+			Object[] object = {i.get("_id"),i.get("brewedCoffee"),i.get("espresso"),i.get("latte"),
+					i.get("cappuccino"),i.get("chocolate"),i.get("vanilla"),
+					i.get("caramel"),i.get("irishCoffee")};
+			arrayList.add(object);
+		}
+		
+		return arrayList;
+		
+	}
+	
 	
 	public static void main(String [] args) {
 		//T3ST!

@@ -1,23 +1,30 @@
 package beaver;
 
+import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumn;
 
 public class ListOfOrdersGUI extends JFrame implements ActionListener {
 	private JTable table;
 	private JButton btnConfirm;
-	public ListOfOrdersGUI() {
+	private Main main;
+	
+	
+	public ListOfOrdersGUI(Main main) {
 		super("List of Orders");
-		
+		this.main = main;
 		addFrame();
 		addButton();
 		addTable();
 		setVisible(true);
 		
+
 	}
 	
 	public void addFrame() {
@@ -35,12 +42,22 @@ public class ListOfOrdersGUI extends JFrame implements ActionListener {
 	}
 	
 	public void addTable() {
-		String[] columnNames = {"Order", "Update", "Delete"};
-		Object[][] data = { };
-		DefaultTableModel model = new DefaultTableModel(data, columnNames);
-		table = new JTable(model);
-		table.setBounds(30, 30, 730, 440);
-		add(table);
+		String[] columnNames = {"Order", "Brewed Coffee", "Espresso", "Latte", "Cappuccino", "Chocolate", "Vanilla", "Caramel", "Irish Coffee"};
+		ArrayList<Object[]> list = main.getOrders();
+		Object[][] data = new Object[list.size()][9];
+		for(int i = 0; i<list.size();i++) {
+			data[i] = list.get(i);
+		}
+		
+		table = new JTable(data, columnNames);
+		
+		JTableHeader header = table.getTableHeader();
+		JPanel panel = new JPanel();
+		panel.add(header);
+		panel.add(table);
+		panel.setBounds(0,0,730,440);
+		add(panel);
+		
 	}
 	
 	
