@@ -1,5 +1,6 @@
 package beaver;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
@@ -8,8 +9,15 @@ public class JoinClubGUI extends JFrame {
 	
 	private JLabel lblJoinClub;
 	
-	private JLabel lblID;
-	private JTextField tfID;
+	private JLabel lblAdress;
+	private JTextField tfAdress;
+	
+	private JLabel lblNbr;
+	private JTextField tfNbr;
+	
+	private JButton btnConfirm;
+	
+	
 	
 	public JoinClubGUI() {
 		addFrame();
@@ -29,12 +37,23 @@ public class JoinClubGUI extends JFrame {
 		lblJoinClub.setBounds(80, 60, 100, 20);
 		add(lblJoinClub);
 		
-		lblID = new JLabel("ID");
-		lblID.setBounds(120, 100, 50, 20);
-		add(lblID);
-		tfID = new JTextField();
-		tfID.setBounds(240, 100, 80, 20);
-		add(tfID);
+		lblAdress = new JLabel("Address");
+		lblAdress.setBounds(120, 150, 50, 20);
+		add(lblAdress);
+		tfAdress = new JTextField();
+		tfAdress.setBounds(300, 150, 100, 20);
+		add(tfAdress);
+		
+		lblNbr = new JLabel("Person Nummer/SSN");
+		lblNbr.setBounds(120, 100, 200, 20);
+		add(lblNbr);
+		tfNbr = new JTextField();
+		tfNbr.setBounds(300, 100, 100, 20);
+		add(tfNbr);
+		
+		btnConfirm = new JButton("Confirm");
+		btnConfirm.setBounds(650, 500, 100, 40);
+		add(btnConfirm);
 		
 	}
 }
