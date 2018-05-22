@@ -3,6 +3,7 @@ import java.awt.List;
 import java.util.ArrayList;
 
 import org.bson.Document;
+import org.bson.conversions.Bson;
 
 import com.mongodb.BasicDBObject;
 import com.mongodb.DB;
@@ -47,7 +48,6 @@ public class Main {
 		MongoIterable<Document> list = collection.find();
 		ArrayList<Object[]> arrayList = new ArrayList<Object[]>();
 		for(Document i:list) {
-			System.out.println(i);
 			Object[] object = {i.get("_id"),i.get("brewedCoffee"),i.get("espresso"),i.get("latte"),
 					i.get("cappuccino"),i.get("chocolate"),i.get("vanilla"),
 					i.get("caramel"),i.get("irishCoffee")};
@@ -58,6 +58,24 @@ public class Main {
 		
 	}
 	
+	public void updateOrder(String id, int brewedCoffee, int espresso, int latte, int cappuccino,
+			int chocolate, int vanilla, int caramel, int irishCoffee) {
+		
+		MongoCollection<Document> collection = database.getCollection("Orders");
+		Bson filter = new Document("_id", id);
+		Document newValue = new Document();
+		newValue.append("brewedCoffee", brewedCoffee);
+		newValue.append("espresso", espresso);
+		newValue.append("latte", latte);
+		newValue.append("cappuccino", cappuccino);
+		newValue.append("chocolate", chocolate);
+		newValue.append("vanilla", vanilla);
+		newValue.append("caramel", caramel);
+		newValue.append("irishCoffee", irishCoffee);
+		Bson updateOperationDocument = new Document("$set", newValue);
+		collection.updateOne(filter, updateOperationDocument);
+		
+	}
 	
 	public static void main(String [] args) {
 		//T3ST!
