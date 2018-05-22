@@ -66,10 +66,8 @@ public class Main {
 		Bson newValue = new Document().append("brewedCoffee", brewedCoffee).append("espresso", espresso).append("latte", latte)
 				.append("cappuccino", cappuccino).append("chocolate", chocolate).append("vanilla", vanilla).append("caramel", caramel)
 				.append("irishCoffee", irishCoffee);
-		System.out.println(filter);
 		Bson updateOperationDocument = new Document("$set", newValue);
 		collection.updateOne(filter, updateOperationDocument);
-		
 	}
 	
 	public static void main(String [] args) {
