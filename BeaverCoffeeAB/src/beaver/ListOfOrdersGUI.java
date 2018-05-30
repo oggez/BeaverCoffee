@@ -9,12 +9,15 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumn;
+import javax.swing.table.TableModel;
 
 public class ListOfOrdersGUI extends JFrame implements ActionListener {
 	private JTable table;
 	private JButton btnConfirm;
 	private JButton btnUpdate;
+	private JButton btnDeleteOrder;
 	private Main main;
+	private Object[][] data;
 	
 	
 	public ListOfOrdersGUI(Main main) {
@@ -42,28 +45,34 @@ public class ListOfOrdersGUI extends JFrame implements ActionListener {
 		btnUpdate = new JButton("Update");
 		btnUpdate.setBounds(40, 500, 150, 40);
 		btnUpdate.addActionListener(this);
+		
+		btnDeleteOrder = new JButton("Delete");
+		btnDeleteOrder.setBounds(200, 500, 150, 40);
+		btnDeleteOrder.addActionListener(this);
 		add(btnConfirm);
 		add(btnUpdate);
+		add(btnDeleteOrder);
 	}
 	
 	public void addTable() {
 		String[] columnNames = {"Order", "Brewed Coffee", "Espresso", "Latte", "Cappuccino", "Chocolate", "Vanilla", "Caramel", "Irish Coffee"};
 		ArrayList<Object[]> list = main.getOrders();
-		Object[][] data = new Object[list.size()][9];
+		data = new Object[list.size()][9];
 		for(int i = 0; i<list.size();i++) {
 			data[i] = list.get(i);
 		}
-		
-		table = new JTable(data, columnNames);
+		TableModel tableModel = new DefaultTableModel(data, columnNames);
+		table = new JTable(tableModel);
 		
 		JTableHeader header = table.getTableHeader();
 		JPanel panel = new JPanel();
 		header.setReorderingAllowed(false);
 		header.setResizingAllowed(false);
-		panel.add(header);
-		panel.add(table);
+		panel.setLayout(new BorderLayout());
+		panel.add(header, BorderLayout.NORTH);
+		panel.add(table, BorderLayout.CENTER);
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		panel.setBounds(0,0,730,440);
+		panel.setBounds(0,0,800,460);
 		
 		add(panel);
 		
@@ -135,9 +144,13 @@ public class ListOfOrdersGUI extends JFrame implements ActionListener {
 			} else {
 				irishCoffee = Integer.parseInt(table.getValueAt(index, 8).toString());
 			}
-			
-			
 			main.updateOrder(id, brewedCoffee, espresso, latte, cappuccino, chocolate, vanilla, caramel, irishCoffee);
+		} else if(e.getSource() == btnDeleteOrder) {
+			int index = table.getSelectedRow();
+			Object id = table.getValueAt(index, 0);
+			main.deleteOrder(id);
+			DefaultTableModel dtm = (DefaultTableModel) table.getModel();
+			dtm.removeRow(index);
 		}
 	}
 }

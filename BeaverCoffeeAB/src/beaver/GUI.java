@@ -58,11 +58,11 @@ public class GUI extends JFrame implements ActionListener {
 		btnJoinClub.setBounds(530, 30, 150, 40);
 		add(btnJoinClub);
 		
-		btnEmployees.setBounds(90, 150, 150, 40);
-		add(btnEmployees);
-		
-		btnAddEmployees.setBounds(310, 150, 150, 40);
+		btnAddEmployees.setBounds(90, 150, 150, 40);
 		add(btnAddEmployees);
+		
+		btnEmployees.setBounds(310, 150, 150, 40);
+		add(btnEmployees);
 		
 		btnCreateReport.setBounds(530, 150, 150, 40);
 		add(btnCreateReport);
@@ -108,6 +108,10 @@ public class GUI extends JFrame implements ActionListener {
 			ListOfOrdersGUI orderList = new ListOfOrdersGUI(main);
 		} else if(e.getSource() == btnJoinClub) {
 			JoinClubGUI joinClub = new JoinClubGUI();
+		} else if(e.getSource() == btnEmployees) {
+			ListOfEmployees listEmployees= new ListOfEmployees(main);
+		} else if(e.getSource() == btnAddEmployees) {
+			AddEmployee addEmployee = new AddEmployee(main);
 		}
 	}
 }

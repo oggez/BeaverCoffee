@@ -1,11 +1,14 @@
 package beaver;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
-public class JoinClubGUI extends JFrame {
+public class JoinClubGUI extends JFrame implements ActionListener{
 	
 	private JLabel lblJoinClub;
 	
@@ -53,7 +56,18 @@ public class JoinClubGUI extends JFrame {
 		
 		btnConfirm = new JButton("Confirm");
 		btnConfirm.setBounds(650, 500, 100, 40);
+		btnConfirm.addActionListener(this);
 		add(btnConfirm);
+		
+		
+		
+	}
+
+	public void actionPerformed(ActionEvent e) {
+		
+		if(e.getSource() == btnConfirm) {
+			dispose();
+		}
 		
 	}
 }

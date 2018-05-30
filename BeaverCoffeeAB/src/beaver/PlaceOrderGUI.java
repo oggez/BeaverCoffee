@@ -60,10 +60,6 @@ public class PlaceOrderGUI extends JFrame implements ActionListener{
 
 	public void addComponents() {
 		setLayout(null);
-
-		NumberFormat numberFormat = NumberFormat.getNumberInstance(Locale.getDefault());
-		DecimalFormat decimalFormat = (DecimalFormat) numberFormat;
-		decimalFormat.setGroupingUsed(false);
 		
 		lblBrewedCoffee = new JLabel("Brewed Coffee");
 		lblBrewedCoffee.setBounds(50, 60, 100, 20);
@@ -196,8 +192,9 @@ public class PlaceOrderGUI extends JFrame implements ActionListener{
 				irishCoffee = Integer.parseInt((tfIrishCoffee.getText()));
 			}
 			
-			
-			main.addOrder(brewedCoffee, espresso, latte, cappuccino, chocolate, vanilla, caramel, irishCoffee);
+			if(brewedCoffee + espresso + latte + cappuccino + chocolate + vanilla + caramel + irishCoffee > 0) {
+				main.addOrder(brewedCoffee, espresso, latte, cappuccino, chocolate, vanilla, caramel, irishCoffee);
+			}
 			dispose();
 			
 		}
