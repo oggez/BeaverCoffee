@@ -31,14 +31,30 @@ public class Main {
 			int chocolate, int vanilla, int caramel, int irishCoffee) {
 		MongoCollection<Document> collection = database.getCollection("Orders");
 		Document document = new Document();
-		document.put("brewedCoffee", brewedCoffee);
+		if(brewedCoffee != 0) {
+			document.put("brewedCoffee", brewedCoffee);
+		}
+		if(espresso != 0) {
 		document.put("espresso", espresso);
+		}
+		if(latte != 0) {
 		document.put("latte", latte);
+		}
+		if(cappuccino != 0) {
 		document.put("cappuccino", cappuccino);
+		}
+		if(chocolate != 0) {
 		document.put("chocolate", chocolate);
+		}
+		if(vanilla != 0) {
 		document.put("vanilla", vanilla);
+		}
+		if(caramel != 0) {
 		document.put("caramel", caramel);
+		}
+		if(irishCoffee != 0) {
 		document.put("irishCoffee", irishCoffee);
+		}
 		
 		collection.insertOne(document);
 	}

@@ -140,7 +140,64 @@ public class PlaceOrderGUI extends JFrame implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		
 		if(e.getSource() == btnConfirm) {
-			main.addOrder(Integer.parseInt((tfBrewedCoffee.getText())), Integer.parseInt((tfEspresso.getText())), Integer.parseInt((tfLatte.getText())), Integer.parseInt((tfCappuccino.getText())), Integer.parseInt((tfChocolate.getText())), Integer.parseInt((tfVanilla.getText())), Integer.parseInt((tfCaramel.getText())), Integer.parseInt((tfIrishCoffee.getText())));
+			int brewedCoffee;
+			int espresso;
+			int latte;
+			int cappuccino;
+			int chocolate;
+			int caramel;
+			int vanilla;
+			int irishCoffee;
+			
+			if(tfBrewedCoffee.getText().equals("")) {
+				brewedCoffee = 0;
+			} else {
+				brewedCoffee = Integer.parseInt((tfBrewedCoffee.getText()));
+			}
+			
+			if(tfEspresso.getText().equals("")) {
+				espresso = 0;
+			} else {
+				espresso = Integer.parseInt((tfEspresso.getText()));
+			}
+			
+			if(tfLatte.getText().equals("")) {
+				latte = 0;
+			} else {
+				latte = Integer.parseInt((tfLatte.getText()));
+			}
+			
+			if(tfCappuccino.getText().equals("")) {
+				cappuccino = 0;
+			} else {
+				cappuccino = Integer.parseInt((tfCappuccino.getText()));
+			}
+			
+			if(tfChocolate.getText().equals("")) {
+				chocolate = 0;
+			} else {
+				chocolate = Integer.parseInt((tfChocolate.getText()));
+			}
+			
+			if(tfVanilla.getText().equals("")) {
+				vanilla = 0;
+			} else {
+				vanilla = Integer.parseInt((tfVanilla.getText()));
+			}
+			if(tfCaramel.getText().equals("")) {
+				caramel = 0;
+			} else {
+				caramel = Integer.parseInt((tfCaramel.getText()));
+			}
+			
+			if(tfIrishCoffee.getText().equals("")) {
+				irishCoffee = 0;
+			} else {
+				irishCoffee = Integer.parseInt((tfIrishCoffee.getText()));
+			}
+			
+			
+			main.addOrder(brewedCoffee, espresso, latte, cappuccino, chocolate, vanilla, caramel, irishCoffee);
 			dispose();
 			
 		}
