@@ -12,17 +12,22 @@ public class JoinClubGUI extends JFrame implements ActionListener{
 	
 	private JLabel lblJoinClub;
 	
-	private JLabel lblAdress;
-	private JTextField tfAdress;
+	private JLabel lblName;
+	private JTextField tfName;
 	
-	private JLabel lblNbr;
-	private JTextField tfNbr;
+	private JLabel lblAddress;
+	private JTextField tfAddress;
+	
+	private JLabel lblPersonnummer;
+	private JTextField tfPersonnummer;
 	
 	private JButton btnConfirm;
+	private Main main;
 	
 	
-	
-	public JoinClubGUI() {
+	public JoinClubGUI(Main main) {
+		super("Join Club");
+		this.main = main;
 		addFrame();
 		setVisible(true);
 	}
@@ -37,22 +42,29 @@ public class JoinClubGUI extends JFrame implements ActionListener{
 	public void addComponents() {
 		setLayout(null);
 		lblJoinClub = new JLabel("Join Club!");
-		lblJoinClub.setBounds(80, 60, 100, 20);
+		lblJoinClub.setBounds(80, 20, 100, 20);
 		add(lblJoinClub);
 		
-		lblAdress = new JLabel("Address");
-		lblAdress.setBounds(120, 150, 50, 20);
-		add(lblAdress);
-		tfAdress = new JTextField();
-		tfAdress.setBounds(300, 150, 100, 20);
-		add(tfAdress);
+		lblName = new JLabel("Name");
+		lblName.setBounds(120, 50, 50, 20);
+		add(lblName);
+		tfName = new JTextField();
+		tfName.setBounds(300, 50, 100, 20);
+		add(tfName);
 		
-		lblNbr = new JLabel("Person Nummer/SSN");
-		lblNbr.setBounds(120, 100, 200, 20);
-		add(lblNbr);
-		tfNbr = new JTextField();
-		tfNbr.setBounds(300, 100, 100, 20);
-		add(tfNbr);
+		lblAddress = new JLabel("Address");
+		lblAddress.setBounds(120, 150, 50, 20);
+		add(lblAddress);
+		tfAddress = new JTextField();
+		tfAddress.setBounds(300, 150, 100, 20);
+		add(tfAddress);
+		
+		lblPersonnummer = new JLabel("Person Number (Customer ID)");
+		lblPersonnummer.setBounds(120, 100, 200, 20);
+		add(lblPersonnummer);
+		tfPersonnummer = new JTextField();
+		tfPersonnummer.setBounds(300, 100, 100, 20);
+		add(tfPersonnummer);
 		
 		btnConfirm = new JButton("Confirm");
 		btnConfirm.setBounds(650, 500, 100, 40);
@@ -66,6 +78,10 @@ public class JoinClubGUI extends JFrame implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		
 		if(e.getSource() == btnConfirm) {
+			String name = tfName.getText();
+			String address = tfAddress.getText();
+			String personnummer= tfPersonnummer.getText();
+			main.joinClub(name, personnummer, address);
 			dispose();
 		}
 		

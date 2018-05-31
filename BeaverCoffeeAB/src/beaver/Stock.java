@@ -5,30 +5,29 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-import javax.swing.*;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
-import javax.swing.table.TableColumn;
 import javax.swing.table.TableModel;
 
-public class ListOfOrdersGUI extends JFrame implements ActionListener {
+public class Stock extends JFrame implements ActionListener {
+	private Main main;
 	private JTable table;
 	private JButton btnConfirm;
 	private JButton btnUpdate;
-	private JButton btnDeleteOrder;
-	private Main main;
 	private Object[][] data;
-	
-	
-	public ListOfOrdersGUI(Main main) {
-		super("List of Orders");
+
+	public Stock(Main main) {
+		super("In stock");
 		this.main = main;
 		addFrame();
 		addButton();
 		addTable();
 		setVisible(true);
-		
-
 	}
 	
 	public void addFrame() {
@@ -46,21 +45,15 @@ public class ListOfOrdersGUI extends JFrame implements ActionListener {
 		btnUpdate.setBounds(40, 500, 150, 40);
 		btnUpdate.addActionListener(this);
 		
-		btnDeleteOrder = new JButton("Delete");
-		btnDeleteOrder.setBounds(200, 500, 150, 40);
-		btnDeleteOrder.addActionListener(this);
 		add(btnConfirm);
 		add(btnUpdate);
-		add(btnDeleteOrder);
 	}
 	
 	public void addTable() {
-		String[] columnNames = {"Order", "Brewed Coffee", "Espresso", "Latte", "Cappuccino", "Chocolate", "Vanilla", "Caramel", "Irish Coffee", "ClubId"};
-		ArrayList<Object[]> list = main.getOrders();
-		data = new Object[list.size()][10];
-		for(int i = 0; i<list.size();i++) {
-			data[i] = list.get(i);
-		}
+		String[] columnNames = {"Location", "Brewed Coffee", "Espresso", "Latte", "Cappuccino", "Chocolate", "Vanilla", "Caramel", "Irish Coffee"};
+		Object[] list = main.getCurrentStock();
+		data = new Object[1][7];
+		data[0] = list;
 		TableModel tableModel = new DefaultTableModel(data, columnNames);
 		table = new JTable(tableModel);
 		
@@ -81,7 +74,6 @@ public class ListOfOrdersGUI extends JFrame implements ActionListener {
 	
 	
 	public void actionPerformed(ActionEvent e) {
-		
 		if(e.getSource() == btnConfirm) {
 			dispose();
 		} else if(e.getSource() == btnUpdate) {
@@ -144,13 +136,9 @@ public class ListOfOrdersGUI extends JFrame implements ActionListener {
 			} else {
 				irishCoffee = Integer.parseInt(table.getValueAt(index, 8).toString());
 			}
-			main.updateOrder(id, brewedCoffee, espresso, latte, cappuccino, chocolate, vanilla, caramel, irishCoffee);
-		} else if(e.getSource() == btnDeleteOrder) {
-			int index = table.getSelectedRow();
-			Object id = table.getValueAt(index, 0);
-			main.deleteOrder(id);
-			DefaultTableModel dtm = (DefaultTableModel) table.getModel();
-			dtm.removeRow(index);
+			main.updateStock(id, brewedCoffee, espresso, latte, cappuccino, chocolate, vanilla, caramel, irishCoffee);
 		}
+		
 	}
+
 }

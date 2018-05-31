@@ -1,19 +1,22 @@
 package beaver;
 
-
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.Locale;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
-public class PlaceOrderGUI extends JFrame implements ActionListener{
+import org.bson.types.ObjectId;
+
+public class PlaceOrderGUI extends JFrame implements ActionListener {
 
 	private JLabel lblBrewedCoffee;
 	private JTextField tfBrewedCoffee;
@@ -42,11 +45,15 @@ public class PlaceOrderGUI extends JFrame implements ActionListener{
 	private JLabel lblIrishCoffee;
 	private JTextField tfIrishCoffee;
 
+	private JLabel lblJoinClub;
+	private JTextField tfJoinClub;
+
 	private JButton btnConfirm;
 
 	private Main main;
-	
+
 	public PlaceOrderGUI(Main main) {
+		super("Place Order");
 		addFrame();
 		this.main = main;
 		setVisible(true);
@@ -60,7 +67,7 @@ public class PlaceOrderGUI extends JFrame implements ActionListener{
 
 	public void addComponents() {
 		setLayout(null);
-		
+
 		lblBrewedCoffee = new JLabel("Brewed Coffee");
 		lblBrewedCoffee.setBounds(50, 60, 100, 20);
 		add(lblBrewedCoffee);
@@ -126,6 +133,13 @@ public class PlaceOrderGUI extends JFrame implements ActionListener{
 		tfIrishCoffee.setBounds(150, 440, 50, 20);
 		add(tfIrishCoffee);
 
+		lblJoinClub = new JLabel("Club member (Person number):");
+		lblJoinClub.setBounds(450, 400, 180, 20);
+		add(lblJoinClub);
+		tfJoinClub = new JTextField();
+		tfJoinClub.setBounds(650, 400, 100, 20);
+		add(tfJoinClub);
+
 		btnConfirm = new JButton("Confirm");
 		btnConfirm.setBounds(650, 500, 100, 40);
 		add(btnConfirm);
@@ -134,71 +148,75 @@ public class PlaceOrderGUI extends JFrame implements ActionListener{
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		
-		if(e.getSource() == btnConfirm) {
-			int brewedCoffee;
-			int espresso;
-			int latte;
-			int cappuccino;
-			int chocolate;
-			int caramel;
-			int vanilla;
-			int irishCoffee;
-			
-			if(tfBrewedCoffee.getText().equals("")) {
-				brewedCoffee = 0;
-			} else {
-				brewedCoffee = Integer.parseInt((tfBrewedCoffee.getText()));
+
+		if (e.getSource() == btnConfirm) {
+			if (tfJoinClub.getText().equals("") || main.checkClub(tfJoinClub.getText())) {
+				int brewedCoffee;
+				int espresso;
+				int latte;
+				int cappuccino;
+				int chocolate;
+				int caramel;
+				int vanilla;
+				int irishCoffee;
+				String clubID = tfJoinClub.getText();
+
+				if (tfBrewedCoffee.getText().equals("")) {
+					brewedCoffee = 0;
+				} else {
+					brewedCoffee = Integer.parseInt((tfBrewedCoffee.getText()));
+				}
+
+				if (tfEspresso.getText().equals("")) {
+					espresso = 0;
+				} else {
+					espresso = Integer.parseInt((tfEspresso.getText()));
+				}
+
+				if (tfLatte.getText().equals("")) {
+					latte = 0;
+				} else {
+					latte = Integer.parseInt((tfLatte.getText()));
+				}
+
+				if (tfCappuccino.getText().equals("")) {
+					cappuccino = 0;
+				} else {
+					cappuccino = Integer.parseInt((tfCappuccino.getText()));
+				}
+
+				if (tfChocolate.getText().equals("")) {
+					chocolate = 0;
+				} else {
+					chocolate = Integer.parseInt((tfChocolate.getText()));
+				}
+
+				if (tfVanilla.getText().equals("")) {
+					vanilla = 0;
+				} else {
+					vanilla = Integer.parseInt((tfVanilla.getText()));
+				}
+				if (tfCaramel.getText().equals("")) {
+					caramel = 0;
+				} else {
+					caramel = Integer.parseInt((tfCaramel.getText()));
+				}
+
+				if (tfIrishCoffee.getText().equals("")) {
+					irishCoffee = 0;
+				} else {
+					irishCoffee = Integer.parseInt((tfIrishCoffee.getText()));
+				}
+
+				if (brewedCoffee + espresso + latte + cappuccino + chocolate + vanilla + caramel + irishCoffee > 0) {
+					main.addOrder(brewedCoffee, espresso, latte, cappuccino, chocolate, vanilla, caramel, irishCoffee, clubID);
+				}
+				dispose();
+			}else {
+				tfJoinClub.setBorder(BorderFactory.createLineBorder(Color.RED));
 			}
-			
-			if(tfEspresso.getText().equals("")) {
-				espresso = 0;
-			} else {
-				espresso = Integer.parseInt((tfEspresso.getText()));
-			}
-			
-			if(tfLatte.getText().equals("")) {
-				latte = 0;
-			} else {
-				latte = Integer.parseInt((tfLatte.getText()));
-			}
-			
-			if(tfCappuccino.getText().equals("")) {
-				cappuccino = 0;
-			} else {
-				cappuccino = Integer.parseInt((tfCappuccino.getText()));
-			}
-			
-			if(tfChocolate.getText().equals("")) {
-				chocolate = 0;
-			} else {
-				chocolate = Integer.parseInt((tfChocolate.getText()));
-			}
-			
-			if(tfVanilla.getText().equals("")) {
-				vanilla = 0;
-			} else {
-				vanilla = Integer.parseInt((tfVanilla.getText()));
-			}
-			if(tfCaramel.getText().equals("")) {
-				caramel = 0;
-			} else {
-				caramel = Integer.parseInt((tfCaramel.getText()));
-			}
-			
-			if(tfIrishCoffee.getText().equals("")) {
-				irishCoffee = 0;
-			} else {
-				irishCoffee = Integer.parseInt((tfIrishCoffee.getText()));
-			}
-			
-			if(brewedCoffee + espresso + latte + cappuccino + chocolate + vanilla + caramel + irishCoffee > 0) {
-				main.addOrder(brewedCoffee, espresso, latte, cappuccino, chocolate, vanilla, caramel, irishCoffee);
-			}
-			dispose();
-			
 		}
-		
+
 	}
 
 }

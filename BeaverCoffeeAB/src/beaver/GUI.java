@@ -13,6 +13,7 @@ public class GUI extends JFrame implements ActionListener {
 	private JButton btnEmployees;
 	private JButton btnAddEmployees;
 	private JButton btnCreateReport;
+	private JButton btnStock;
 	
 	private JComboBox<String> accessControlDropDown;
 	
@@ -41,13 +42,14 @@ public class GUI extends JFrame implements ActionListener {
 		btnEmployees = new JButton("Employees");
 		btnAddEmployees = new JButton("Add Employee");
 		btnCreateReport = new JButton("Create Report");
-		
+		btnStock = new JButton("Stock");
 		btnPlaceOrder.addActionListener(this);
 		btnListOfOrders.addActionListener(this);
 		btnJoinClub.addActionListener(this);
 		btnEmployees.addActionListener(this);
 		btnAddEmployees.addActionListener(this);
 		btnCreateReport.addActionListener(this);
+		btnStock.addActionListener(this);
 		
 		btnPlaceOrder.setBounds(90, 30, 150, 40);
 		add(btnPlaceOrder);
@@ -66,6 +68,9 @@ public class GUI extends JFrame implements ActionListener {
 		
 		btnCreateReport.setBounds(530, 150, 150, 40);
 		add(btnCreateReport);
+		
+		btnStock.setBounds(90, 270, 150, 40);
+		add(btnStock);
 		
 		btnEmployees.setEnabled(false);
 		btnAddEmployees.setEnabled(false);
@@ -107,11 +112,13 @@ public class GUI extends JFrame implements ActionListener {
 		} else if(e.getSource() == btnListOfOrders) {
 			ListOfOrdersGUI orderList = new ListOfOrdersGUI(main);
 		} else if(e.getSource() == btnJoinClub) {
-			JoinClubGUI joinClub = new JoinClubGUI();
+			JoinClubGUI joinClub = new JoinClubGUI(main);
 		} else if(e.getSource() == btnEmployees) {
 			ListOfEmployees listEmployees= new ListOfEmployees(main);
 		} else if(e.getSource() == btnAddEmployees) {
 			AddEmployee addEmployee = new AddEmployee(main);
+		} else if(e.getSource() == btnStock) {
+			Stock stock = new Stock(main);
 		}
 	}
 }
