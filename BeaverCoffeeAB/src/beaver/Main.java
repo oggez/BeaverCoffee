@@ -157,7 +157,7 @@ public class Main {
 	 * @param irishCoffee
 	 */
 	public void updateOrder(Object id, int brewedCoffee, int espresso, int latte, int cappuccino, int chocolate,
-			int vanilla, int caramel, int irishCoffee) {
+			int vanilla, int caramel, int irishCoffee, Object clubId) {
 
 		MongoCollection<Document> collection = database.getCollection("Orders");
 		Bson filter = new Document().append("_id", id);
@@ -218,6 +218,9 @@ public class Main {
 		if (irishCoffee != 0 || irishCoffeeStock != 0) {
 			newValue.put("irishCoffee", irishCoffee);
 		}
+		
+		Object[] object = { brewedCoffee, espresso, latte, cappuccino, chocolate, vanilla, caramel, irishCoffee, clubId};
+		newValue.put("price", getPrice(object));
 
 		Bson updateOperationDocument = new Document("$set", newValue);
 		collection.updateOne(filter, updateOperationDocument);

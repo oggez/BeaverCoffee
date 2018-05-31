@@ -99,6 +99,7 @@ public class ListOfOrdersGUI extends JFrame implements ActionListener {
 			int index = table.getSelectedRow();
 			
 			Object id = table.getValueAt(index, 0);
+			Object clubId = table.getValueAt(index, 9);
 			
 			if(table.getValueAt(index, 1) == null) {
 				brewedCoffee = 0;
@@ -147,7 +148,7 @@ public class ListOfOrdersGUI extends JFrame implements ActionListener {
 			} else {
 				irishCoffee = Integer.parseInt(table.getValueAt(index, 8).toString());
 			}
-			main.updateOrder(id, brewedCoffee, espresso, latte, cappuccino, chocolate, vanilla, caramel, irishCoffee);
+			main.updateOrder(id, brewedCoffee, espresso, latte, cappuccino, chocolate, vanilla, caramel, irishCoffee, clubId);
 		} else if(e.getSource() == btnDeleteOrder) {
 			int index = table.getSelectedRow();
 			Object id = table.getValueAt(index, 0);
