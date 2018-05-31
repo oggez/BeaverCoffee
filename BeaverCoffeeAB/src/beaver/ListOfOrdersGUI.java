@@ -55,9 +55,9 @@ public class ListOfOrdersGUI extends JFrame implements ActionListener {
 	}
 	
 	public void addTable() {
-		String[] columnNames = {"Order", "Brewed Coffee", "Espresso", "Latte", "Cappuccino", "Chocolate", "Vanilla", "Caramel", "Irish Coffee", "ClubId"};
+		String[] columnNames = {"Order #", "Brewed Coffee", "Espresso", "Latte", "Cappuccino", "Chocolate", "Vanilla", "Caramel", "Irish Coffee",  "ClubId", "Price $"};
 		ArrayList<Object[]> list = main.getOrders();
-		data = new Object[list.size()][10];
+		data = new Object[list.size()][11];
 		for(int i = 0; i<list.size();i++) {
 			data[i] = list.get(i);
 		}
@@ -78,6 +78,9 @@ public class ListOfOrdersGUI extends JFrame implements ActionListener {
 		
 		
 	}
+	
+	
+	
 	
 	
 	public void actionPerformed(ActionEvent e) {

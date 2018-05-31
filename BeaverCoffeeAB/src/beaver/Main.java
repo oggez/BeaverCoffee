@@ -78,6 +78,9 @@ public class Main {
 		if (!clubId.equals("")) {
 			document.put("clubId", clubId);
 		}
+		Object[] object = { brewedCoffee, espresso, latte, cappuccino, chocolate, vanilla, caramel, irishCoffee, clubId};
+		
+		document.put("price", getPrice(object));
 
 		collection.insertOne(document);
 		reduceStock(stockId, brewedCoffee, espresso, latte, cappuccino, chocolate, vanilla, caramel, irishCoffee);
@@ -95,7 +98,7 @@ public class Main {
 		for (Document i : list) {
 			Object[] object = { i.get("_id"), i.get("brewedCoffee"), i.get("espresso"), i.get("latte"),
 					i.get("cappuccino"), i.get("chocolate"), i.get("vanilla"), i.get("caramel"), i.get("irishCoffee"),
-					i.get("clubId") };
+					i.get("clubId"), i.get("price")};
 			arrayList.add(object);
 		}
 
@@ -305,6 +308,16 @@ public class Main {
 		Bson updateOperationDocument = new Document("$set", newValue);
 		collection.updateOne(filter, updateOperationDocument);
 	}
+	
+	public boolean checkIfEmployee(Object id) {
+		MongoCollection<Document> collection = database.getCollection("Employees");
+		BasicDBObject findQuery = new BasicDBObject();
+		findQuery.put("personnummer", id);
+		if (collection.find(findQuery).first() != null) {
+			return true;
+		}
+		return false;
+	}
 
 	public boolean checkClub(Object id) {
 		MongoCollection<Document> collection = database.getCollection("Club");
@@ -375,6 +388,44 @@ public class Main {
 
 		Bson updateOperationDocument = new Document("$set", newValue);
 		collection.updateOne(filter, updateOperationDocument);
+	}
+	
+	public double getPrice(Object[] order) {
+		int brewedCoffee = 0, espresso = 0, latte = 0, cappucino = 0, chocolate = 0,
+				vanilla = 0, caramel = 0, irishCoffee = 0;
+		if(order[0] != null) {
+			brewedCoffee = Integer.parseInt(order[0].toString());
+		}
+		if(order[1] != null) {
+			espresso = Integer.parseInt(order[1].toString());
+		}
+		if(order[2] != null) {
+			latte = Integer.parseInt(order[2].toString());
+		}
+		if(order[3] != null) {
+			cappucino = Integer.parseInt(order[3].toString());
+		}
+		if(order[4] != null) {
+			chocolate = Integer.parseInt(order[4].toString());
+		}
+		if(order[5] != null) {
+			vanilla = Integer.parseInt(order[5].toString());
+		}
+		if(order[6] != null) {
+			caramel = Integer.parseInt(order[6].toString());
+		}
+		if(order[7] != null) {
+			irishCoffee = Integer.parseInt(order[7].toString());
+		}
+		
+		
+		double price = (brewedCoffee *10) + ((espresso + latte + cappucino + chocolate)*20) + ((vanilla + caramel + irishCoffee) * 10);
+		
+		if(checkIfEmployee(order[8])) {
+			price = price * 0.90;
+		}
+		
+		return price;
 	}
 
 	public static void main(String[] args) {

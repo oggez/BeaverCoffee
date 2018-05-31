@@ -119,6 +119,8 @@ public class GUI extends JFrame implements ActionListener {
 			AddEmployee addEmployee = new AddEmployee(main);
 		} else if(e.getSource() == btnStock) {
 			Stock stock = new Stock(main);
+		} else if(e.getSource() == btnCreateReport) {
+			CreateReports createReport = new CreateReports(main);
 		}
 	}
 }

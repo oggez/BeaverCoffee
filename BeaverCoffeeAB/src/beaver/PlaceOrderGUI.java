@@ -68,39 +68,39 @@ public class PlaceOrderGUI extends JFrame implements ActionListener {
 	public void addComponents() {
 		setLayout(null);
 
-		lblBrewedCoffee = new JLabel("Brewed Coffee");
-		lblBrewedCoffee.setBounds(50, 60, 100, 20);
+		lblBrewedCoffee = new JLabel("Brewed Coffee (10 $)");
+		lblBrewedCoffee.setBounds(50, 60, 150, 20);
 		add(lblBrewedCoffee);
 		tfBrewedCoffee = new JTextField();
-		tfBrewedCoffee.setBounds(150, 60, 50, 20);
+		tfBrewedCoffee.setBounds(250, 60, 50, 20);
 		add(tfBrewedCoffee);
 
-		lblEspresso = new JLabel("Espresso");
-		lblEspresso.setBounds(50, 120, 100, 20);
+		lblEspresso = new JLabel("Espresso (20 $)");
+		lblEspresso.setBounds(50, 120, 150, 20);
 		add(lblEspresso);
 		tfEspresso = new JTextField();
-		tfEspresso.setBounds(150, 120, 50, 20);
+		tfEspresso.setBounds(250, 120, 50, 20);
 		add(tfEspresso);
 
-		lblLatte = new JLabel("Latte");
-		lblLatte.setBounds(50, 180, 100, 20);
+		lblLatte = new JLabel("Latte (20 $)");
+		lblLatte.setBounds(50, 180, 150, 20);
 		add(lblLatte);
 		tfLatte = new JTextField();
-		tfLatte.setBounds(150, 180, 50, 20);
+		tfLatte.setBounds(250, 180, 50, 20);
 		add(tfLatte);
 
-		lblCappuccino = new JLabel("Cappuccino");
-		lblCappuccino.setBounds(50, 240, 100, 20);
+		lblCappuccino = new JLabel("Cappuccino (20 $)");
+		lblCappuccino.setBounds(50, 240, 150, 20);
 		add(lblCappuccino);
 		tfCappuccino = new JTextField();
-		tfCappuccino.setBounds(150, 240, 50, 20);
+		tfCappuccino.setBounds(250, 240, 50, 20);
 		add(tfCappuccino);
 
-		lblChocolate = new JLabel("Chocolate");
-		lblChocolate.setBounds(50, 300, 100, 20);
+		lblChocolate = new JLabel("Chocolate (20 $)");
+		lblChocolate.setBounds(50, 300, 150, 20);
 		add(lblChocolate);
 		tfChocolate = new JTextField();
-		tfChocolate.setBounds(150, 300, 50, 20);
+		tfChocolate.setBounds(250, 300, 50, 20);
 		add(tfChocolate);
 
 		lblLine = new JLabel(
@@ -108,8 +108,8 @@ public class PlaceOrderGUI extends JFrame implements ActionListener {
 		lblLine.setBounds(50, 360, 800, 20);
 		add(lblLine);
 
-		lblSyrups = new JLabel("Syrups");
-		lblSyrups.setBounds(50, 380, 50, 20);
+		lblSyrups = new JLabel("Syrups (10 $ each)");
+		lblSyrups.setBounds(50, 380, 150, 20);
 		add(lblSyrups);
 
 		lblVanilla = new JLabel("Vanilla");

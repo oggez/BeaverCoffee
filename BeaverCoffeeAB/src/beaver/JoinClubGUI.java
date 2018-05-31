@@ -34,7 +34,7 @@ public class JoinClubGUI extends JFrame implements ActionListener{
 	
 	public void addFrame() {
 		setResizable(false);
-		setBounds(300, 50, 800, 600);
+		setBounds(200, 50, 800, 600);
 		addComponents();
 	}
 
