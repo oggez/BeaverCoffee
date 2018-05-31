@@ -11,6 +11,8 @@ import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableModel;
 
+import org.joda.time.DateTime;
+
 public class ListOfOrdersGUI extends JFrame implements ActionListener {
 	private JTable table;
 	private JButton btnConfirm;
@@ -38,6 +40,7 @@ public class ListOfOrdersGUI extends JFrame implements ActionListener {
 	}
 	
 	public void addButton() {
+		
 		btnConfirm = new JButton("Exit");
 		
 		btnConfirm.addActionListener(this);
@@ -55,14 +58,16 @@ public class ListOfOrdersGUI extends JFrame implements ActionListener {
 	}
 	
 	public void addTable() {
-		String[] columnNames = {"Order #", "Brewed Coffee", "Espresso", "Latte", "Cappuccino", "Chocolate", "Vanilla", "Caramel", "Irish Coffee",  "ClubId", "Price $"};
+		String[] columnNames = {"Order #", "Date", "Brewed Coffee", "Espresso", "Latte", "Cappuccino", "Chocolate", "Vanilla", "Caramel", "Irish Coffee",  "ClubId", "Price $"};
 		ArrayList<Object[]> list = main.getOrders();
-		data = new Object[list.size()][11];
+		data = new Object[list.size()][12];
 		for(int i = 0; i<list.size();i++) {
 			data[i] = list.get(i);
 		}
 		TableModel tableModel = new DefaultTableModel(data, columnNames);
 		table = new JTable(tableModel);
+		
+		
 		
 		JTableHeader header = table.getTableHeader();
 		JPanel panel = new JPanel();

@@ -2,11 +2,17 @@ package beaver;
 
 import java.awt.List;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 import org.bson.Document;
 import org.bson.conversions.Bson;
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 
 import com.mongodb.BasicDBObject;
+import com.mongodb.BasicDBObjectBuilder;
 import com.mongodb.DB;
 import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
@@ -14,6 +20,7 @@ import com.mongodb.DBObject;
 import com.mongodb.Mongo;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
+import com.mongodb.QueryBuilder;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.MongoIterable;
@@ -50,6 +57,10 @@ public class Main {
 			int caramel, int irishCoffee, String clubId) {
 		MongoCollection<Document> collection = database.getCollection("Orders");
 		Document document = new Document();
+		DateTime dt = new DateTime();
+		
+		document.put("date", dt.getDayOfMonth() + "/" + dt.getMonthOfYear() + "/" + dt.getYear() + " " + dt.getHourOfDay() + ":" + dt.getMinuteOfHour() + ":" + dt.getSecondOfMinute());
+		
 		if (brewedCoffee != 0) {
 			document.put("brewedCoffee", brewedCoffee);
 		}
@@ -96,10 +107,57 @@ public class Main {
 		MongoIterable<Document> list = collection.find();
 		ArrayList<Object[]> arrayList = new ArrayList<Object[]>();
 		for (Document i : list) {
-			Object[] object = { i.get("_id"), i.get("brewedCoffee"), i.get("espresso"), i.get("latte"),
+			Object[] object = { i.get("_id"), i.get("date"),i.get("brewedCoffee"), i.get("espresso"), i.get("latte"),
 					i.get("cappuccino"), i.get("chocolate"), i.get("vanilla"), i.get("caramel"), i.get("irishCoffee"),
 					i.get("clubId"), i.get("price")};
 			arrayList.add(object);
+		}
+
+		return arrayList;
+
+	}
+	
+	public ArrayList<Object[]> getOrdersFromDates(DateTime fromDate, DateTime toDate) {
+		MongoCollection<Document> collection = database.getCollection("Orders");
+		MongoIterable<Document> list = collection.find();
+		ArrayList<Object[]> arrayList = new ArrayList<Object[]>();
+		DateTimeFormatter formatter = DateTimeFormat.forPattern("dd/MM/yyyy HH:mm:ss");
+		DateTime dt;
+		for (Document i : list) {
+			dt = formatter.parseDateTime(i.get("date").toString());
+			if(dt.isAfter(fromDate) && dt.isBefore(toDate)) {
+				Object[] object = { i.get("_id"), i.get("date"),i.get("brewedCoffee"), i.get("espresso"), i.get("latte"),
+						i.get("cappuccino"), i.get("chocolate"), i.get("vanilla"), i.get("caramel"), i.get("irishCoffee"),
+						i.get("clubId"), i.get("price")};
+				arrayList.add(object);
+			}
+		}
+
+		return arrayList;
+
+	}
+	
+	public ArrayList<Object[]> getOrdersFromDatesAndProduct(DateTime fromDate, DateTime toDate, ArrayList<String> productList) {
+		MongoCollection<Document> collection = database.getCollection("Orders");
+		BasicDBObject findQuery = new BasicDBObject();
+		for(String item : productList) {
+			findQuery.append(item, new BasicDBObject("$exists", true));
+			
+		
+		}
+		MongoIterable<Document> list = collection.find(findQuery);
+		
+		ArrayList<Object[]> arrayList = new ArrayList<Object[]>();
+		DateTimeFormatter formatter = DateTimeFormat.forPattern("dd/MM/yyyy HH:mm:ss");
+		DateTime dt;
+		for (Document i : list) {
+			dt = formatter.parseDateTime(i.get("date").toString());
+			if(dt.isAfter(fromDate) && dt.isBefore(toDate)) {
+				Object[] object = { i.get("_id"), i.get("date"),i.get("brewedCoffee"), i.get("espresso"), i.get("latte"),
+						i.get("cappuccino"), i.get("chocolate"), i.get("vanilla"), i.get("caramel"), i.get("irishCoffee"),
+						i.get("clubId"), i.get("price")};
+				arrayList.add(object);
+			}
 		}
 
 		return arrayList;
@@ -432,7 +490,7 @@ public class Main {
 	}
 
 	public static void main(String[] args) {
-		System.out.println(Math.abs(-5 + 2));
+		
 		Main main = new Main();
 		GUI gui = new GUI(main);
 	}
