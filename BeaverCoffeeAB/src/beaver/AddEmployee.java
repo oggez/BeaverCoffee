@@ -113,10 +113,16 @@ public class AddEmployee extends JFrame implements ActionListener {
 			String start  = tfStart.getText();
 			String enddates = tfEndDate.getText();
 			String fulltime = tfFullTime.getText();
-		
-			if(!(name += personnummer += position += start += enddates += fulltime).equals("")) {
+			
+			if(!(name.equals("")) && !(personnummer.equals("") && !(position.equals("")) && !(start.equals("")) && !(enddates.equals("")) && !(fulltime.equals("")))) {
 				main.addEmployee(name, personnummer, position, start, enddates, fulltime);
 			}
+		
+			//if(!(name += personnummer += position += start += enddates += fulltime).equals("")) {
+				//main.addEmployee(name, personnummer, position, start, enddates, fulltime);
+			//}
+			
+			
 			dispose();
 		}
 	}

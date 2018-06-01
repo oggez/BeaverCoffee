@@ -106,52 +106,52 @@ public class ListOfOrdersGUI extends JFrame implements ActionListener {
 			Object id = table.getValueAt(index, 0);
 			Object clubId = table.getValueAt(index, 9);
 			
-			if(table.getValueAt(index, 1) == null) {
+			if(table.getValueAt(index, 2) == null) {
 				brewedCoffee = 0;
 			} else {
-				brewedCoffee = Integer.parseInt(table.getValueAt(index, 1).toString());
-			}
-			
-			if(table.getValueAt(index, 2) == null) {
-				espresso = 0;
-			} else {
-				espresso = Integer.parseInt(table.getValueAt(index, 2).toString());
+				brewedCoffee = Integer.parseInt(table.getValueAt(index, 2).toString());
 			}
 			
 			if(table.getValueAt(index, 3) == null) {
-				latte = 0;
+				espresso = 0;
 			} else {
-				latte = Integer.parseInt(table.getValueAt(index, 3).toString());
+				espresso = Integer.parseInt(table.getValueAt(index, 3).toString());
 			}
 			
 			if(table.getValueAt(index, 4) == null) {
-				cappuccino = 0;
+				latte = 0;
 			} else {
-				cappuccino = Integer.parseInt(table.getValueAt(index, 4).toString());
+				latte = Integer.parseInt(table.getValueAt(index, 4).toString());
 			}
 			
 			if(table.getValueAt(index, 5) == null) {
-				chocolate = 0;
+				cappuccino = 0;
 			} else {
-				chocolate = Integer.parseInt(table.getValueAt(index, 5).toString());
+				cappuccino = Integer.parseInt(table.getValueAt(index, 5).toString());
 			}
 			
 			if(table.getValueAt(index, 6) == null) {
-				vanilla = 0;
+				chocolate = 0;
 			} else {
-				vanilla = Integer.parseInt(table.getValueAt(index, 6).toString());
+				chocolate = Integer.parseInt(table.getValueAt(index, 6).toString());
 			}
 			
 			if(table.getValueAt(index, 7) == null) {
-				caramel = 0;
+				vanilla = 0;
 			} else {
-				caramel = Integer.parseInt(table.getValueAt(index, 7).toString());
+				vanilla = Integer.parseInt(table.getValueAt(index, 7).toString());
 			}
 			
 			if(table.getValueAt(index, 8) == null) {
+				caramel = 0;
+			} else {
+				caramel = Integer.parseInt(table.getValueAt(index, 8).toString());
+			}
+			
+			if(table.getValueAt(index, 9) == null) {
 				irishCoffee = 0;
 			} else {
-				irishCoffee = Integer.parseInt(table.getValueAt(index, 8).toString());
+				irishCoffee = Integer.parseInt(table.getValueAt(index, 9).toString());
 			}
 			main.updateOrder(id, brewedCoffee, espresso, latte, cappuccino, chocolate, vanilla, caramel, irishCoffee, clubId);
 		} else if(e.getSource() == btnDeleteOrder) {

@@ -54,7 +54,7 @@ public class Main {
 	 * @param irishCoffee
 	 */
 	public void addOrder(int brewedCoffee, int espresso, int latte, int cappuccino, int chocolate, int vanilla,
-			int caramel, int irishCoffee, String clubId) {
+			int caramel, int irishCoffee, String clubId, String empID) {
 		MongoCollection<Document> collection = database.getCollection("Orders");
 		Document document = new Document();
 		DateTime dt = new DateTime();
@@ -89,6 +89,7 @@ public class Main {
 		if (!clubId.equals("")) {
 			document.put("clubId", clubId);
 		}
+		document.put("employeeID", empID);
 		Object[] object = { brewedCoffee, espresso, latte, cappuccino, chocolate, vanilla, caramel, irishCoffee, clubId};
 		
 		document.put("price", getPrice(object));
@@ -164,6 +165,7 @@ public class Main {
 
 	}
 
+	
 	public void deleteOrder(Object id) {
 		MongoCollection<Document> collection = database.getCollection("Orders");
 

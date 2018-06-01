@@ -5,10 +5,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import java.util.ArrayList;
 import java.util.Locale;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -17,7 +19,10 @@ import javax.swing.JTextField;
 import org.bson.types.ObjectId;
 
 public class PlaceOrderGUI extends JFrame implements ActionListener {
-
+	
+	private JComboBox<String> employeeID;
+	private JLabel lblEmployeeID;
+	
 	private JLabel lblBrewedCoffee;
 	private JTextField tfBrewedCoffee;
 
@@ -54,8 +59,8 @@ public class PlaceOrderGUI extends JFrame implements ActionListener {
 
 	public PlaceOrderGUI(Main main) {
 		super("Place Order");
-		addFrame();
 		this.main = main;
+		addFrame();		
 		setVisible(true);
 	}
 
@@ -67,7 +72,7 @@ public class PlaceOrderGUI extends JFrame implements ActionListener {
 
 	public void addComponents() {
 		setLayout(null);
-
+		
 		lblBrewedCoffee = new JLabel("Brewed Coffee (10 $)");
 		lblBrewedCoffee.setBounds(50, 60, 150, 20);
 		add(lblBrewedCoffee);
@@ -144,8 +149,33 @@ public class PlaceOrderGUI extends JFrame implements ActionListener {
 		btnConfirm.setBounds(650, 500, 100, 40);
 		add(btnConfirm);
 		btnConfirm.addActionListener(this);
+		
+		lblEmployeeID = new JLabel("Select your Employee ID");
+		lblEmployeeID.setBounds(500, 130, 180, 20);
+		add(lblEmployeeID);
+		employeeIDDropdown();
 	}
 
+	private void employeeIDDropdown() {
+		
+		ArrayList<String> list = new ArrayList<String>();
+		ArrayList<Object[]> objectList = main.getEmployees();
+		for (Object[] o : objectList) {
+			String s = ""+o[0];
+			list.add(s); 
+		}
+		String[] stringList = list.toArray(new String[0]);
+		for(String s : stringList) {
+			System.out.println(s);
+		}
+		System.out.println(stringList);
+		
+		employeeID = new JComboBox<String>(stringList);
+		employeeID.setBounds(500, 150, 250, 20);
+		employeeID.addActionListener(this);
+		add(employeeID);
+		
+	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
 
@@ -207,9 +237,9 @@ public class PlaceOrderGUI extends JFrame implements ActionListener {
 				} else {
 					irishCoffee = Integer.parseInt((tfIrishCoffee.getText()));
 				}
-
+				String empID = employeeID.getSelectedItem().toString();
 				if (brewedCoffee + espresso + latte + cappuccino + chocolate + vanilla + caramel + irishCoffee > 0) {
-					main.addOrder(brewedCoffee, espresso, latte, cappuccino, chocolate, vanilla, caramel, irishCoffee, clubID);
+					main.addOrder(brewedCoffee, espresso, latte, cappuccino, chocolate, vanilla, caramel, irishCoffee, clubID, empID);
 				}
 				dispose();
 			}else {
