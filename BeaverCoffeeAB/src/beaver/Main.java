@@ -1,26 +1,15 @@
 package beaver;
 
-import java.awt.List;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 
+import java.util.ArrayList;
 import org.bson.Document;
 import org.bson.conversions.Bson;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
-
 import com.mongodb.BasicDBObject;
-import com.mongodb.BasicDBObjectBuilder;
-import com.mongodb.DB;
-import com.mongodb.DBCollection;
-import com.mongodb.DBCursor;
-import com.mongodb.DBObject;
-import com.mongodb.Mongo;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
-import com.mongodb.QueryBuilder;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.MongoIterable;
@@ -57,8 +46,10 @@ public class Main {
 			int caramel, int irishCoffee, String clubId, String empID) {
 		MongoCollection<Document> collection = database.getCollection("Orders");
 		Document document = new Document();
+		//To add data into database
+//		DateTimeFormatter formatter = DateTimeFormat.forPattern("dd/MM/yyyy");
+//		DateTime dt = formatter.parseDateTime("22/05/2018");
 		DateTime dt = new DateTime();
-		
 		document.put("date", dt.getDayOfMonth() + "/" + dt.getMonthOfYear() + "/" + dt.getYear() + " " + dt.getHourOfDay() + ":" + dt.getMinuteOfHour() + ":" + dt.getSecondOfMinute());
 		
 		if (brewedCoffee != 0) {
@@ -145,8 +136,8 @@ public class Main {
 		for(String item : productList) {
 			findQuery.append(item, new BasicDBObject("$exists", true));
 			
-		
 		}
+		
 		MongoIterable<Document> list = collection.find(findQuery);
 		
 		ArrayList<Object[]> arrayList = new ArrayList<Object[]>();

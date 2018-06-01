@@ -165,10 +165,6 @@ public class PlaceOrderGUI extends JFrame implements ActionListener {
 			list.add(s); 
 		}
 		String[] stringList = list.toArray(new String[0]);
-		for(String s : stringList) {
-			System.out.println(s);
-		}
-		System.out.println(stringList);
 		
 		employeeID = new JComboBox<String>(stringList);
 		employeeID.setBounds(500, 150, 250, 20);
