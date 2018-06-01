@@ -65,47 +65,47 @@ public class AddEmployee extends JFrame implements ActionListener {
 		lblName.setBounds(50, 60, 100, 20);
 		add(lblName);
 		tfName = new JTextField();
-		tfName.setBounds(150, 60, 100, 20);
+		tfName.setBounds(200, 60, 100, 20);
 		add(tfName);
 
 		lblPersonnummer = new JLabel("Person number");
 		lblPersonnummer.setBounds(50, 120, 100, 20);
 		add(lblPersonnummer);
 		tfPersonnummer = new JTextField();
-		tfPersonnummer.setBounds(150, 120, 100, 20);
+		tfPersonnummer.setBounds(200, 120, 100, 20);
 		add(tfPersonnummer);
 
 		lblPosition = new JLabel("Position");
 		lblPosition.setBounds(50, 180, 100, 20);
 		add(lblPosition);
 		tfPosition = new JTextField();
-		tfPosition.setBounds(150, 180, 100, 20);
+		tfPosition.setBounds(200, 180, 100, 20);
 		add(tfPosition);
 
-		lblStart = new JLabel("Start");
-		lblStart.setBounds(50, 240, 100, 20);
+		lblStart = new JLabel("Start(dd/MM/yyyy)");
+		lblStart.setBounds(50, 240, 150, 20);
 		add(lblStart);
 		tfStart = new JTextField();
-		tfStart.setBounds(150, 240, 100, 20);
+		tfStart.setBounds(200, 240, 100, 20);
 		add(tfStart);
 
-		lblEndDate = new JLabel("End date");
-		lblEndDate.setBounds(50, 300, 100, 20);
+		lblEndDate = new JLabel("End date(dd/MM/yyyy)");
+		lblEndDate.setBounds(50, 300, 150, 20);
 		add(lblEndDate);
 		tfEndDate = new JTextField();
-		tfEndDate.setBounds(150, 300, 100, 20);
+		tfEndDate.setBounds(200, 300, 100, 20);
 		add(tfEndDate);
 
 		lblFullTime = new JLabel("% of full time");
 		lblFullTime.setBounds(50, 360, 100, 20);
 		add(lblFullTime);
 		tfFullTime = new JTextField();
-		tfFullTime.setBounds(150, 360, 100, 20);
+		tfFullTime.setBounds(200, 360, 100, 20);
 		add(tfFullTime);
 	}
 	
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
+		
 		if(e.getSource() == btnConfirm) {
 			String name = tfName.getText();
 			String personnummer= tfPersonnummer.getText();
@@ -117,11 +117,6 @@ public class AddEmployee extends JFrame implements ActionListener {
 			if(!(name.equals("")) && !(personnummer.equals("") && !(position.equals("")) && !(start.equals("")) && !(enddates.equals("")) && !(fulltime.equals("")))) {
 				main.addEmployee(name, personnummer, position, start, enddates, fulltime);
 			}
-		
-			//if(!(name += personnummer += position += start += enddates += fulltime).equals("")) {
-				//main.addEmployee(name, personnummer, position, start, enddates, fulltime);
-			//}
-			
 			
 			dispose();
 		}

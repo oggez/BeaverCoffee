@@ -29,6 +29,8 @@ public class CreateReports extends JFrame implements ActionListener {
 	private JComboBox<String> employeeID;
 	private JButton btnCreateReport;
 
+	private JButton btnCreateReportEmployeeTime;
+	
 	private JButton btnCreateReportProduct;
 	
 	private JButton btnCreateReportEmployee;
@@ -75,8 +77,13 @@ public class CreateReports extends JFrame implements ActionListener {
 		btnCreateReportProduct.addActionListener(this);
 		add(btnCreateReportProduct);
 		
+		btnCreateReportEmployeeTime = new JButton("Create Report employee listing timed period");
+		btnCreateReportEmployeeTime.setBounds(25, 350, 350, 40);
+		btnCreateReportEmployeeTime.addActionListener(this);
+		add(btnCreateReportEmployeeTime);
+		
 		btnCreateReportEmployee = new JButton("Create Report employee sales for timed period");
-		btnCreateReportEmployee.setBounds(450, 350, 300, 40);
+		btnCreateReportEmployee.setBounds(400, 350, 350, 40);
 		btnCreateReportEmployee.addActionListener(this);
 		add(btnCreateReportEmployee);
 	}
@@ -137,10 +144,6 @@ public class CreateReports extends JFrame implements ActionListener {
 			list.add(s);
 		}
 		String[] stringList = list.toArray(new String[0]);
-		for (String s : stringList) {
-			System.out.println(s);
-		}
-		System.out.println(stringList);
 
 		employeeID = new JComboBox<String>(stringList);
 		employeeID.setBounds(500, 400, 250, 20);
@@ -166,10 +169,19 @@ public class CreateReports extends JFrame implements ActionListener {
 			addTableForProduct(report);
 			report.setVisible(true);
 		}else if (e.getSource() == btnCreateReportEmployee) {
-			String empID = employeeID.getSelectedItem().toString();
-			//TODO
-			//Code in main to get report from employee ID
-			//Show in new window table
+			JFrame report = new JFrame();
+			report.setResizable(false);
+			report.setBounds(200, 50, 800, 600);
+			report.setLayout(null);
+			addTableForEmployee(report);
+			report.setVisible(true);
+		}else if (e.getSource() == btnCreateReportEmployeeTime) {
+			JFrame report = new JFrame();
+			report.setResizable(false);
+			report.setBounds(200, 50, 800, 600);
+			report.setLayout(null);
+			addTableEmployee(report);
+			report.setVisible(true);
 		}
 
 	}
@@ -207,6 +219,40 @@ public class CreateReports extends JFrame implements ActionListener {
 
 	}
 
+	
+	public void addTableEmployee(JFrame report) {
+		String[] columnNames = { "ID(Person Number)", "Name",  "Position", "Start", "End date", "% full time" };
+		DateTimeFormatter formatter = DateTimeFormat.forPattern("dd/MM/yyyy HH:mm:ss");
+		DateTime dtFrom = formatter.parseDateTime(tfFromDate.getText());
+		DateTime dtTo = formatter.parseDateTime(tfToDate.getText());
+
+		ArrayList<Object[]> list;
+
+		
+		list = main.getEmployeeFromDate(dtFrom, dtTo);
+
+		Object[][] data = new Object[list.size()][11];
+		for (int i = 0; i < list.size(); i++) {
+			data[i] = list.get(i);
+		}
+		TableModel tableModel = new DefaultTableModel(data, columnNames);
+		JTable table = new JTable(tableModel);
+
+		JTableHeader header = table.getTableHeader();
+		JPanel panel = new JPanel();
+		header.setReorderingAllowed(false);
+		header.setResizingAllowed(false);
+		panel.setLayout(new BorderLayout());
+		panel.add(header, BorderLayout.NORTH);
+		panel.add(table, BorderLayout.CENTER);
+		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		panel.setBounds(0, 0, 800, 600);
+
+		report.add(panel);
+
+	}
+	
+	
 	public void addTableForProduct(JFrame report) {
 		ArrayList<String> productList = new ArrayList<String>();
 		if (cbCoffee.isSelected()) {
@@ -260,7 +306,36 @@ public class CreateReports extends JFrame implements ActionListener {
 		panel.setBounds(0, 0, 800, 600);
 
 		report.add(panel);
+	}
+	
+	public void addTableForEmployee(JFrame report) {
+		
+		
+		String[] columnNames = { "Order #", "Date", "Brewed Coffee", "Espresso", "Latte", "Cappuccino", "Chocolate",
+				"Vanilla", "Caramel", "Irish Coffee", "ClubId", "Price $" };
+		DateTimeFormatter formatter = DateTimeFormat.forPattern("dd/MM/yyyy HH:mm:ss");
+		DateTime dtFrom = formatter.parseDateTime(tfFromDate.getText());
+		DateTime dtTo = formatter.parseDateTime(tfToDate.getText());
+		ArrayList<Object[]> list = main.getOrdersMadeByEmployee(dtFrom, dtTo, employeeID.getSelectedItem().toString());
 
+		Object[][] data = new Object[list.size()][11];
+		for (int i = 0; i < list.size(); i++) {
+			data[i] = list.get(i);
+		}
+		TableModel tableModel = new DefaultTableModel(data, columnNames);
+		JTable table = new JTable(tableModel);
+
+		JTableHeader header = table.getTableHeader();
+		JPanel panel = new JPanel();
+		header.setReorderingAllowed(false);
+		header.setResizingAllowed(false);
+		panel.setLayout(new BorderLayout());
+		panel.add(header, BorderLayout.NORTH);
+		panel.add(table, BorderLayout.CENTER);
+		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		panel.setBounds(0, 0, 800, 600);
+
+		report.add(panel);
 	}
 
 }

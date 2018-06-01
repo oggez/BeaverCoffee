@@ -138,6 +138,7 @@ public class Main {
 
 	}
 	
+	
 	public ArrayList<Object[]> getOrdersFromDatesAndProduct(DateTime fromDate, DateTime toDate, ArrayList<String> productList) {
 		MongoCollection<Document> collection = database.getCollection("Orders");
 		BasicDBObject findQuery = new BasicDBObject();
@@ -164,7 +165,52 @@ public class Main {
 		return arrayList;
 
 	}
+	
+	public ArrayList<Object[]> getOrdersMadeByEmployee(DateTime fromDate, DateTime toDate, String employeeID) {
+		MongoCollection<Document> collection = database.getCollection("Orders");
+		BasicDBObject findQuery = new BasicDBObject();
+		findQuery.put("employeeID", employeeID);
+			
+		
+		MongoIterable<Document> list = collection.find(findQuery);
+		
+		ArrayList<Object[]> arrayList = new ArrayList<Object[]>();
+		DateTimeFormatter formatter = DateTimeFormat.forPattern("dd/MM/yyyy HH:mm:ss");
+		DateTime dt;
+		for (Document i : list) {
+			dt = formatter.parseDateTime(i.get("date").toString());
+			if(dt.isAfter(fromDate) && dt.isBefore(toDate)) {
+				Object[] object = { i.get("_id"), i.get("date"),i.get("brewedCoffee"), i.get("espresso"), i.get("latte"),
+						i.get("cappuccino"), i.get("chocolate"), i.get("vanilla"), i.get("caramel"), i.get("irishCoffee"),
+						i.get("clubId"), i.get("price")};
+				arrayList.add(object);
+			}
+		}
 
+		return arrayList;
+
+	}
+
+	public ArrayList<Object[]> getEmployeeFromDate(DateTime fromDate, DateTime toDate) {
+		MongoCollection<Document> collection = database.getCollection("Employees");
+		MongoIterable<Document> list = collection.find();
+		ArrayList<Object[]> arrayList = new ArrayList<Object[]>();
+		DateTimeFormatter formatter = DateTimeFormat.forPattern("dd/MM/yyyy");
+		DateTime dt;
+		DateTime dtEnd;
+		for (Document i : list) {
+			dt = formatter.parseDateTime(i.get("start").toString());
+			dtEnd = formatter.parseDateTime(i.get("endDates").toString());
+			if(dt.isAfter(fromDate) && dt.isBefore(toDate) && dtEnd.isAfter(fromDate) && dtEnd.isBefore(toDate)) {
+				Object[] object = { i.get("_id"), i.get("name"), i.get("position"), i.get("start"),
+						i.get("endDates"), i.get("fulltime")};
+				arrayList.add(object);
+			}
+		}
+
+		return arrayList;
+
+	}
 	
 	public void deleteOrder(Object id) {
 		MongoCollection<Document> collection = database.getCollection("Orders");
@@ -296,16 +342,17 @@ public class Main {
 		}
 		return 0;
 	}
+	
 
 	public void addEmployee(String name, String personnummer, String position, String start, String endDates,
 			String fulltime) {
 		MongoCollection<Document> collection = database.getCollection("Employees");
 		Document document = new Document();
+		if (!personnummer.equals("")) {
+			document.put("_id", personnummer);
+		}
 		if (!name.equals("")) {
 			document.put("name", name);
-		}
-		if (!personnummer.equals("")) {
-			document.put("personnummer", personnummer);
 		}
 		if (!position.equals("")) {
 			document.put("position", position);
@@ -328,7 +375,7 @@ public class Main {
 		MongoIterable<Document> list = collection.find();
 		ArrayList<Object[]> arrayList = new ArrayList<Object[]>();
 		for (Document i : list) {
-			Object[] object = { i.get("_id"), i.get("name"), i.get("personnummer"), i.get("position"), i.get("start"),
+			Object[] object = { i.get("_id"), i.get("name"), i.get("position"), i.get("start"),
 					i.get("endDates"), i.get("fulltime") };
 			arrayList.add(object);
 		}
@@ -348,12 +395,11 @@ public class Main {
 		Bson filter = new Document().append("_id", id);
 
 		Document newValue = new Document();
-
+		if (!personnummer.equals("")) {
+			newValue.put("_id", personnummer);
+		}
 		if (!name.equals("")) {
 			newValue.put("name", name);
-		}
-		if (!personnummer.equals("")) {
-			newValue.put("personnummer", personnummer);
 		}
 		if (!position.equals("")) {
 			newValue.put("position", position);
@@ -375,7 +421,7 @@ public class Main {
 	public boolean checkIfEmployee(Object id) {
 		MongoCollection<Document> collection = database.getCollection("Employees");
 		BasicDBObject findQuery = new BasicDBObject();
-		findQuery.put("personnummer", id);
+		findQuery.put("_id", id);
 		if (collection.find(findQuery).first() != null) {
 			return true;
 		}

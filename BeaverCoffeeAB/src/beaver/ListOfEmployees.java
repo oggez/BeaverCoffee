@@ -57,8 +57,9 @@ public class ListOfEmployees extends JFrame implements ActionListener {
 		add(btnDelete);
 	}
 	
+	
 	public void addTable() {
-		String[] columnNames = {"EmployeeID", "Name", "Person number", "Position", "Start", "End date", "% full time"};
+		String[] columnNames = {"ID(Person Number)", "Name",  "Position", "Start", "End date", "% full time"};
 		ArrayList<Object[]> list = main.getEmployees();
 		data = new Object[list.size()][7];
 		for(int i = 0; i<list.size();i++) {
